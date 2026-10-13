@@ -2,29 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-#root {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-/* .sections-container {
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  height: 100vh;
-}
-
-.section {
-  scroll-snap-align: start;
-} */
-
-
 html {
-  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* clears the sticky header on anchor jumps */
 }
 
-.image {
-  object-fit: contain;
+body {
+  @apply bg-stone-50 font-sans text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
+}
+
+a:focus-visible,
+button:focus-visible {
+  @apply rounded-md outline-none ring-2 ring-amber-500 ring-offset-2 ring-offset-stone-50 dark:ring-offset-zinc-950;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* CSS-only reveal; browsers without scroll timelines just show the content. */
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+    }
+  }
 }
